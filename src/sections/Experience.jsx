@@ -38,13 +38,16 @@ const Experience = () => {
   ];
 
   useGSAP(() => {
-    // Animate timeline progress on scroll with flowing gradient
+    // Set initial state - line hidden
+    gsap.set(".timeline-progress", { height: "0%" });
+
+    // Animate timeline progress starting from the first dot position
     gsap.to(".timeline-progress", {
       height: "100%",
       ease: "none",
       scrollTrigger: {
         trigger: ".timeline-container",
-        start: "top 30%",
+        start: "top 65%",
         end: "bottom 70%",
         scrub: 1,
       },
@@ -85,32 +88,6 @@ const Experience = () => {
       });
     });
 
-    // Animate timeline dots with scale and glow
-    gsap.utils.toArray(".timeline-dot").forEach((dot, index) => {
-      gsap.from(dot, {
-        scale: 0,
-        duration: 0.6,
-        ease: "back.out(3)",
-        scrollTrigger: {
-          trigger: dot,
-          start: "top 65%",
-        },
-      });
-
-      // Pulsing glow effect
-      gsap.to(dot, {
-        boxShadow: "0 0 20px 5px rgba(255, 255, 255, 0.5)",
-        duration: 1.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        scrollTrigger: {
-          trigger: dot,
-          start: "top 65%",
-        },
-      });
-    });
-
     // Animate responsibilities one by one
     gsap.utils.toArray(".resp-item").forEach((item, index) => {
       gsap.from(item, {
@@ -136,30 +113,29 @@ const Experience = () => {
         <TitleHeader title="Experience" sub="College Journey" />
 
         <div className="timeline-container mt-20 md:mt-32 relative max-w-6xl mx-auto">
-          {/* Animated Timeline */}
-          <div className="absolute left-0 md:left-8 top-0 bottom-0 w-1">
+          {/* Animated Timeline with bold start */}
+          <div className="absolute left-0 md:left-8 top-0 bottom-0 w-0.5">
             {/* Background line */}
             <div className="absolute inset-0 bg-white-10 rounded-full"></div>
-            {/* Animated progress line with flowing gradient */}
-            <div 
+            {/* Animated progress line with flowing gradient - bright red to dark blue */}
+            <div
               className="timeline-progress absolute top-0 left-0 w-full h-0 rounded-full"
               style={{
-                background: "linear-gradient(180deg, #ef4444 0%, #a855f7 25%, #3b82f6 50%, #ef4444 75%, #a855f7 100%)",
+                background:
+                  "linear-gradient(180deg, #ff0000 0%, #ef4444 15%, #ec4899 30%, #a855f7 50%, #6366f1 70%, #1e3a8a 100%)",
                 backgroundSize: "100% 200%",
-                filter: "drop-shadow(0 0 10px rgba(239, 68, 68, 0.5))"
+                filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.4))",
               }}
             ></div>
+            {/* Bold starting point - placed after line to appear in front */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 md:w-4 md:h-4 bg-gradient-to-br from-red-500 to-orange-500 rounded-full shadow-lg z-10" 
+                 style={{ filter: "drop-shadow(0 0 8px rgba(239, 68, 68, 0.6))" }}></div>
           </div>
 
           {/* Experience Items */}
           <div className="space-y-16 md:space-y-20 ml-10 md:ml-20">
             {expCards.map((card, index) => (
               <div key={index} className="exp-item relative">
-                {/* Timeline Dot */}
-                <div
-                  className={`timeline-dot absolute -left-10 md:-left-20 w-5 h-5 md:w-6 md:h-6 bg-gradient-to-br ${card.color} rounded-full border-4 border-black-200 shadow-lg`}
-                ></div>
-
                 {/* Content Card */}
                 <div className="bg-gradient-to-br from-white-5 to-transparent border border-white-10 rounded-2xl p-6 md:p-8 backdrop-blur-sm hover:border-white-20 transition-all duration-300">
                   {/* Header */}
