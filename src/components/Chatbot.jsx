@@ -244,59 +244,59 @@ SOCIAL MEDIA RESPONSES:
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-8 right-8 z-[200] size-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 group"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[200] size-14 md:size-16 bg-black border-2 border-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center justify-center hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all duration-300 group"
         aria-label="Open chat"
       >
         {isOpen ? (
-          <Minimize2 className="text-white" size={24} />
+          <Minimize2 className="text-white" size={20} />
         ) : (
-          <MessageCircle className="text-white" size={24} />
+          <MessageCircle className="text-white" size={20} />
         )}
         {/* Pulse animation */}
-        <span className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-75"></span>
+        <span className="absolute inset-0 rounded-full bg-white/20 animate-ping opacity-75"></span>
       </button>
 
       {/* Chat Window */}
       {isOpen && (
         <div
           ref={chatWindowRef}
-          className="fixed bottom-28 right-8 z-[199] w-96 max-w-[calc(100vw-2rem)] h-[500px] bg-black-100 border border-white-10 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+          className="fixed bottom-20 right-4 md:bottom-28 md:right-8 z-[199] w-[calc(100vw-2rem)] sm:w-96 md:w-[28rem] max-w-[calc(100vw-2rem)] h-[70vh] sm:h-[500px] md:h-[550px] bg-black border-2 border-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)] flex flex-col overflow-hidden backdrop-blur-xl"
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="size-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+          <div className="bg-white text-black p-3 md:p-4 flex items-center justify-between border-b-2 border-black">
+            <div className="flex items-center gap-2 md:gap-3">
+              <div className="size-8 md:size-10 rounded-full border-2 border-black flex items-center justify-center overflow-hidden shadow-lg">
                 <img src="/images/Haryiank.jpg" alt="Avatar" className="size-full rounded-full object-cover" />
               </div>
               <div>
-                <h3 className="text-white font-semibold">Haryiank's Assistant</h3>
-                <p className="text-xs text-white-50">Online now</p>
+                <h3 className="text-black font-bold text-sm md:text-base">Haryiank's Assistant</h3>
+                <p className="text-xs text-gray-700">Online now</p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+              className="text-black hover:bg-black/10 rounded-full p-1.5 md:p-2 transition-colors"
             >
-              <X size={20} />
+              <X size={18} className="md:w-5 md:h-5" />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
             {messages.map((msg, index) => (
               <div key={index}>
                 <div
                   className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2 ${
+                    className={`max-w-[85%] md:max-w-[80%] rounded-2xl px-3 md:px-4 py-2 md:py-2.5 transition-all duration-200 ${
                       msg.type === "user"
-                        ? "bg-blue-500 text-white"
-                        : "bg-white-5 text-white-50 border border-white-10"
+                        ? "bg-white text-black shadow-lg"
+                        : "bg-white/5 text-white border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]"
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
-                    <span className="text-xs opacity-60 mt-1 block">
+                    <p className="text-xs md:text-sm whitespace-pre-wrap leading-relaxed">{msg.text}</p>
+                    <span className="text-[10px] md:text-xs opacity-60 mt-1 block">
                       {msg.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                     </span>
                   </div>
@@ -307,10 +307,10 @@ SOCIAL MEDIA RESPONSES:
                   <div className="flex justify-start mt-2">
                     <button
                       onClick={handleDownloadResume}
-                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                      className="flex items-center gap-2 px-3 md:px-4 py-2 bg-white text-black rounded-xl hover:bg-gray-200 transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] border border-white/20"
                     >
-                      <Download size={18} />
-                      <span className="text-sm font-medium">Download Resume</span>
+                      <Download size={16} className="md:w-[18px] md:h-[18px]" />
+                      <span className="text-xs md:text-sm font-semibold">Download Resume</span>
                     </button>
                   </div>
                 )}
@@ -319,11 +319,11 @@ SOCIAL MEDIA RESPONSES:
 
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white-5 border border-white-10 rounded-2xl px-4 py-3">
+                <div className="bg-white/5 border border-white/20 rounded-2xl px-3 md:px-4 py-2 md:py-3 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                   <div className="flex gap-1">
-                    <div className="w-2 h-2 bg-white-50 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-white-50 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
-                    <div className="w-2 h-2 bg-white-50 rounded-full animate-bounce" style={{ animationDelay: "0.4s" }}></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/70 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/70 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/70 rounded-full animate-bounce" style={{ animationDelay: "0.4s" }}></div>
                   </div>
                 </div>
               </div>
@@ -332,12 +332,12 @@ SOCIAL MEDIA RESPONSES:
           </div>
 
           {/* Quick Replies */}
-          <div className="px-4 pb-2 flex gap-2 overflow-x-auto">
+          <div className="px-3 md:px-4 pb-2 flex gap-2 overflow-x-auto scrollbar-none">
             {quickReplies.map((reply, index) => (
               <button
                 key={index}
                 onClick={() => handleSendMessage(reply)}
-                className="px-3 py-1.5 bg-white-5 border border-white-10 rounded-full text-xs text-white-50 hover:bg-white-10 transition-colors whitespace-nowrap"
+                className="px-2.5 md:px-3 py-1 md:py-1.5 bg-white/10 border border-white/30 rounded-full text-[10px] md:text-xs text-white hover:bg-white/20 hover:border-white/50 transition-all duration-200 whitespace-nowrap shadow-sm"
               >
                 {reply}
               </button>
@@ -345,7 +345,7 @@ SOCIAL MEDIA RESPONSES:
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-white-10">
+          <div className="p-3 md:p-4 border-t-2 border-white/20">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -353,13 +353,13 @@ SOCIAL MEDIA RESPONSES:
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything..."
-                className="flex-1 px-4 py-2 bg-white-5 border border-white-10 rounded-lg text-white placeholder-white-50 focus:outline-none focus:border-blue-500 transition-colors"
+                className="flex-1 px-3 md:px-4 py-2 md:py-2.5 bg-white/5 border border-white/30 rounded-xl text-white text-sm md:text-base placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/10 transition-all duration-200 shadow-inner"
               />
               <button
                 onClick={() => handleSendMessage()}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+                className="px-3 md:px-4 py-2 md:py-2.5 bg-white text-black hover:bg-gray-200 rounded-xl transition-all duration-200 shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
               >
-                <Send size={20} className="text-white" />
+                <Send size={18} className="md:w-5 md:h-5" />
               </button>
             </div>
           </div>
