@@ -16,7 +16,7 @@ const HeroLights = () => (
       angle={0.3}
       penumbra={0.5}
       intensity={40}
-      color="#bab2ecff"
+      color="#bab2ec"
     />
     {/* purplish side fill */}
     <spotLight
@@ -24,11 +24,11 @@ const HeroLights = () => (
       angle={0.4}
       penumbra={1}
       intensity={60}
-      color="#c8acdeff"
+      color="#c8acde"
     />
     {/* area light for soft moody fill */}
     <primitive
-      object={new THREE.RectAreaLight("#d0bceaff", 8, 3, 2)}
+      object={new THREE.RectAreaLight("#d0bcea", 8, 3, 2)}
       position={[1, 3, 4]}
       rotation={[-Math.PI / 4, Math.PI / 4, 0]}
       intensity={15}

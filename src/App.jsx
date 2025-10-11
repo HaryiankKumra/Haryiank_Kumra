@@ -6,18 +6,19 @@ import Hero from "./sections/Hero";
 import ShowcaseSection from "./sections/ShowcaseSection";
 import FeatureCards from "./sections/FeatureCards";
 import Navbar from "./components/NavBar";
+import Chatbot from "./components/Chatbot";
 
 const App = () => (
   <>
     <Navbar />
     <Hero />
     <ShowcaseSection />
-    {/* <LogoShowcase /> */}
     <FeatureCards />
     <Experience />
     <TechStack />
     <Contact />
     <Footer />
+    <Chatbot />
   </>
 );
 

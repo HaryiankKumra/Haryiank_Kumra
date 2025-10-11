@@ -75,17 +75,6 @@ const Experience = () => {
           toggleActions: "play none none reverse",
         },
       });
-
-      // Glow effect on scroll
-      gsap.from(item.querySelector(".content-card"), {
-        boxShadow: "0 0 0px rgba(255, 255, 255, 0)",
-        scrollTrigger: {
-          trigger: item,
-          start: "top 70%",
-          end: "top 30%",
-          scrub: 1,
-        },
-      });
     });
 
     // Animate responsibilities one by one

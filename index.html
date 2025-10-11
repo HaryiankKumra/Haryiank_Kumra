@@ -9,11 +9,26 @@
   <body>
     <div id="root"></div>
 
-    <!-- Runtime patches for GSAP and THREE.js -->
+    <!-- Runtime patches for GSAP, THREE.js, and React DevTools -->
     <script>
       (function initPatches() {
         let gsapPatched = false;
         let threePatched = false;
+
+        // Suppress React DevTools semver error immediately
+        if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+          const originalRegisterRenderer = window.__REACT_DEVTOOLS_GLOBAL_HOOK__.registerRendererInterface;
+          
+          window.__REACT_DEVTOOLS_GLOBAL_HOOK__.registerRendererInterface = function(...args) {
+            try {
+              return originalRegisterRenderer?.apply(this, args);
+            } catch (err) {
+              // Silently ignore all DevTools errors
+              return;
+            }
+          };
+          console.log('✓ React DevTools patched for semver compatibility');
+        }
 
         function tryPatch() {
           // Patch GSAP to suppress null target warnings
@@ -54,11 +69,9 @@
             return;
           }
 
-          // Continue polling
           setTimeout(tryPatch, 50);
         }
 
-        // Start polling
         tryPatch();
       })();
     </script>
