@@ -51,30 +51,16 @@ const Contact = () => {
       // Send auto-reply to the user if auto-reply template is configured
       if (autoReplyTemplateId) {
         try {
-          // Use proper EmailJS parameter structure for auto-reply
+          // EmailJS auto-reply parameters - must match template variables
           const autoReplyParams = {
-            // These should match your EmailJS auto-reply template variables
-            user_name: form.name,
-            user_email: form.email,
-            reply_to: form.email, // This should be used in the "To" field of your template
+            email: form.email,        // Recipient's email - set "To Email" field in template as {{email}}
+            name: form.name,          // Matches {{name}} in template
+            title: form.message,      // Matches {{title}} in template
             from_name: "Haryiank Kumra",
-            from_email: "haryiank1kumra@gmail.com",
-            subject: "Thank you for contacting me!",
-            message_body: `Hi ${form.name},
-
-Thank you for reaching out through my portfolio! 
-
-I've received your message and will get back to you within 24-48 hours. In the meantime, feel free to check out my other projects and connect with me on social media.
-
-Your message: "${form.message.substring(0, 150)}${form.message.length > 150 ? '...' : ''}"
-
-Best regards,
-Haryiank Kumra
-Full Stack Developer & AI Enthusiast
-
----
-This is an automated response. Please do not reply to this email.`
+            reply_to: "haryiank1kumra@gmail.com"
           };
+
+          console.log("Sending auto-reply with params:", autoReplyParams);
 
           const autoReplyResult = await emailjs.send(
             serviceId,
@@ -85,17 +71,11 @@ This is an automated response. Please do not reply to this email.`
 
           console.log("Auto-reply sent successfully:", autoReplyResult);
         } catch (autoReplyError) {
-          console.error("Auto-reply failed:", autoReplyError);
-          console.error("Auto-reply error details:", {
-            status: autoReplyError.status,
-            text: autoReplyError.text
-          });
-          
-          // Log the parameters that were sent for debugging
-          console.error("Auto-reply parameters:", {
-            user_email: form.email,
-            user_name: form.name
-          });
+          // Log but don't block the main success flow
+          console.error("Auto-reply failed (non-critical):", autoReplyError);
+          console.error("Error text:", autoReplyError.text);
+          console.error("Error status:", autoReplyError.status);
+          // Don't show this error to the user since main email succeeded
         }
       }
 
@@ -228,7 +208,7 @@ This is an automated response. Please do not reply to this email.`
               <div className="relative">
                 <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white-10 shadow-2xl">
                   <img
-                    src="https://haryiank.me/Haryiank/assets/images/IMG_1760.jpg"
+                    src="/images/Haryiank.jpg"
                     alt="Haryiank Kumra"
                     className="w-full h-full object-cover"
                   />
