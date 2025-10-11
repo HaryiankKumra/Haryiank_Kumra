@@ -2,12 +2,67 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/images/fav.png" /> -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Haryiank &mdash;&mdash; Portfolio</title>
+    <title>3D Portfolio</title>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Runtime patches for GSAP and THREE.js -->
+    <script>
+      (function initPatches() {
+        let gsapPatched = false;
+        let threePatched = false;
+
+        function tryPatch() {
+          // Patch GSAP to suppress null target warnings
+          if (!gsapPatched && window.gsap) {
+            try {
+              window.gsap.config({ nullTargetWarn: false });
+              gsapPatched = true;
+              console.log('✓ GSAP null target warnings disabled');
+            } catch (e) {
+              console.warn('Failed to patch GSAP:', e);
+            }
+          }
+
+          // Patch THREE.Color to handle 8-digit hex colors
+          if (!threePatched && window.THREE && window.THREE.Color) {
+            try {
+              const ColorProto = window.THREE.Color.prototype;
+              const originalSetStyle = ColorProto.setStyle;
+              
+              ColorProto.setStyle = function(style) {
+                if (typeof style === 'string' && /^#[0-9a-f]{8}$/i.test(style)) {
+                  // Strip alpha channel (last 2 chars) from 8-digit hex
+                  style = style.substring(0, 7);
+                }
+                return originalSetStyle.call(this, style);
+              };
+              
+              threePatched = true;
+              console.log('✓ THREE.Color patched for 8-digit hex colors');
+            } catch (e) {
+              console.warn('Failed to patch THREE.Color:', e);
+            }
+          }
+
+          // Stop polling once both are patched
+          if (gsapPatched && threePatched) {
+            console.log('✓ All runtime patches applied successfully');
+            return;
+          }
+
+          // Continue polling
+          setTimeout(tryPatch, 50);
+        }
+
+        // Start polling
+        tryPatch();
+      })();
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
