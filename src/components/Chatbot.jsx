@@ -16,6 +16,7 @@ const Chatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [apiCallCount, setApiCallCount] = useState(0);
   const [lastApiCall, setLastApiCall] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const chatWindowRef = useRef(null);
   const buttonRef = useRef(null);
@@ -191,7 +192,7 @@ SOCIAL MEDIA RESPONSES:
   };
 
   const handleSendMessage = async (messageText = inputMessage) => {
-    if (!messageText.trim()) return;
+    if (!messageText.trim() || isLoading) return;
 
     const userMessage = {
       type: "user",
@@ -202,6 +203,7 @@ SOCIAL MEDIA RESPONSES:
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsTyping(true);
+    setIsLoading(true);
 
     // Check for resume download first
     let response = getBotResponse(messageText);
@@ -229,11 +231,12 @@ SOCIAL MEDIA RESPONSES:
       };
       setMessages((prev) => [...prev, botResponse]);
       setIsTyping(false);
+      setIsLoading(false);
     }, 800);
   };
 
   const handleSend = async () => {
-    if (!inputMessage.trim()) return;
+    if (!inputMessage.trim() || isLoading) return;
     
     // Blur the input to close keyboard on mobile
     if (inputRef.current) {
@@ -249,6 +252,7 @@ SOCIAL MEDIA RESPONSES:
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsTyping(true);
+    setIsLoading(true);
 
     // Check for resume download first
     let response = getBotResponse(inputMessage);
@@ -276,11 +280,12 @@ SOCIAL MEDIA RESPONSES:
       };
       setMessages((prev) => [...prev, botResponse]);
       setIsTyping(false);
+      setIsLoading(false);
     }, 800);
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !isLoading) {
       e.preventDefault();
       handleSend();
     }
@@ -401,14 +406,28 @@ SOCIAL MEDIA RESPONSES:
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask me anything..."
-                className="flex-1 px-3 md:px-4 py-2 md:py-2.5 bg-white/5 border border-white/30 rounded-xl text-white text-sm md:text-base placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/10 transition-all duration-200 shadow-inner"
+                placeholder={isLoading ? "Waiting for response..." : "Ask me anything..."}
+                disabled={isLoading}
+                className={`flex-1 px-3 md:px-4 py-2 md:py-2.5 bg-white/5 border border-white/30 rounded-xl text-white text-sm md:text-base placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/10 transition-all duration-200 shadow-inner ${
+                  isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               />
               <button
                 onClick={() => handleSendMessage()}
-                className="px-3 md:px-4 py-2 md:py-2.5 bg-white text-black hover:bg-gray-200 rounded-xl transition-all duration-200 shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                disabled={isLoading || !inputMessage.trim()}
+                className={`px-3 md:px-4 py-2 md:py-2.5 bg-white text-black rounded-xl transition-all duration-200 shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] ${
+                  isLoading || !inputMessage.trim()
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-gray-200"
+                }`}
               >
-                <Send size={18} className="md:w-5 md:h-5" />
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
+                  </span>
+                ) : (
+                  "Send"
+                )}
               </button>
             </div>
           </div>
