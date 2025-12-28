@@ -292,10 +292,11 @@ const AppShowcase = () => {
           <div className="flex justify-center mt-6">
             <a
               href="/projects"
-              className="group flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-200 text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="group flex items-center gap-2 px-4 md:px-6 py-3 bg-white hover:bg-gray-200 text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm md:text-base whitespace-nowrap"
             >
-              View All Projects & Certifications
-              <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
+              <span className="hidden sm:inline">View All Projects & Certifications</span>
+              <span className="sm:hidden">View All Projects</span>
+              <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
             </a>
           </div>
 
