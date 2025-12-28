@@ -19,6 +19,7 @@ const Chatbot = () => {
   const messagesEndRef = useRef(null);
   const chatWindowRef = useRef(null);
   const buttonRef = useRef(null);
+  const inputRef = useRef(null);
 
   // Initialize AI silently
   const ai = import.meta.env.VITE_GEMINI_API_KEY 
@@ -231,10 +232,57 @@ SOCIAL MEDIA RESPONSES:
     }, 800);
   };
 
+  const handleSend = async () => {
+    if (!inputMessage.trim()) return;
+    
+    // Blur the input to close keyboard on mobile
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
+    
+    const userMessage = {
+      type: "user",
+      text: inputMessage,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInputMessage("");
+    setIsTyping(true);
+
+    // Check for resume download first
+    let response = getBotResponse(inputMessage);
+    
+    // For everything else, use AI
+    if (!response && import.meta.env.VITE_GEMINI_API_KEY && ai) {
+      response = await getGeminiResponse(inputMessage);
+    }
+    
+    // Fallback to default response
+    if (!response) {
+      response = {
+        text: "I'm here to help you learn about Haryiank's experience, skills, and projects. What would you like to know?",
+        isAI: false
+      };
+    }
+
+    setTimeout(() => {
+      const botResponse = {
+        type: "bot",
+        text: response.text,
+        timestamp: new Date(),
+        action: response.action,
+        isAI: false, // Never mark as AI
+      };
+      setMessages((prev) => [...prev, botResponse]);
+      setIsTyping(false);
+    }, 800);
+  };
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleSendMessage();
+      handleSend();
     }
   };
 
@@ -348,6 +396,7 @@ SOCIAL MEDIA RESPONSES:
           <div className="p-3 md:p-4 border-t-2 border-white/20">
             <div className="flex gap-2">
               <input
+                ref={inputRef}
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
