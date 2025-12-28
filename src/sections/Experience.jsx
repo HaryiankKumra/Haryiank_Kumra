@@ -1,24 +1,14 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useState } from "react";
 
 import TitleHeader from "../components/TitleHeader";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    // Check if mobile on mount
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  // Check if mobile once at module level
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   // Experience data
   const expCards = [
@@ -51,17 +41,10 @@ const Experience = () => {
   ];
 
   useGSAP(() => {
-    // Skip complex animations on mobile for better performance
-    if (isMobile) {
-      // Simple fade-in only for mobile
-      gsap.utils.toArray(".exp-item").forEach((item) => {
-        gsap.set(item, { opacity: 1, y: 0 });
-      });
-      gsap.set(".timeline-progress", { height: "100%" });
-      return;
-    }
+    // Completely skip all GSAP animations on mobile
+    if (isMobile) return;
 
-    // Desktop animations
+    // Desktop only animations
     gsap.set(".timeline-progress", { height: "0%" });
 
     gsap.to(".timeline-progress", {
@@ -75,7 +58,6 @@ const Experience = () => {
       },
     });
 
-    // Animate each experience card
     gsap.utils.toArray(".exp-item").forEach((item) => {
       gsap.from(item, {
         opacity: 0,
@@ -89,7 +71,7 @@ const Experience = () => {
         },
       });
     });
-  }, [isMobile]);
+  }, []);
 
   return (
     <section
@@ -100,7 +82,7 @@ const Experience = () => {
         <TitleHeader title="Experience" sub="College Journey" />
 
         <div className="timeline-container mt-12 sm:mt-16 md:mt-32 relative max-w-6xl mx-auto">
-          {/* Timeline - Static on mobile, animated on desktop */}
+          {/* Timeline */}
           <div className="absolute left-4 sm:left-6 md:left-8 top-0 bottom-0 w-[2px] md:w-0.5">
             <div className="absolute inset-0 bg-white-10 rounded-full"></div>
             <div
@@ -114,10 +96,14 @@ const Experience = () => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 md:w-4 md:h-4 bg-gradient-to-br from-red-500 to-orange-500 rounded-full z-10"></div>
           </div>
 
-          {/* Experience Items */}
+          {/* Experience Items - No animation classes on mobile */}
           <div className="space-y-10 sm:space-y-12 md:space-y-16 ml-12 sm:ml-14 md:ml-20">
             {expCards.map((card, index) => (
-              <div key={index} className="exp-item relative">
+              <div
+                key={index}
+                className={isMobile ? "" : "exp-item"}
+                style={{ opacity: isMobile ? 1 : undefined }}
+              >
                 <div className="bg-gradient-to-br from-white-5 to-transparent border border-white-10 rounded-xl p-4 sm:p-5 md:p-6 lg:p-8">
                   {/* Header */}
                   <div className="flex flex-col gap-3 mb-4 sm:mb-6">
