@@ -58,8 +58,8 @@ const ProjectsPage = () => {
       longDescription: "Safe Space uses machine learning algorithms to analyze user behavior patterns and physiological indicators to detect stress levels. The platform provides personalized recommendations, guided meditation sessions, and connects users with mental health resources.",
       image: "/images/project1.png",
       technologies: ["React", "Python", "TensorFlow", "Node.js", "MongoDB"],
-      github: "https://github.com/yourusername/safe-space",
-      live: "https://safe-space-demo.com",
+      github: "https://github.com/HaryiankKumra/source-code-sniffer-easy",
+      live: "https://safespace-indol.vercel.app/",
       category: "AI/ML"
     },
     {
@@ -69,8 +69,8 @@ const ProjectsPage = () => {
       longDescription: "Revoice combines cutting-edge voice synthesis technology with ASL recognition to bridge communication gaps. Users can clone voices for text-to-speech applications while the ASL feature translates sign language in real-time.",
       image: "/images/project2.png",
       technologies: ["Python", "PyTorch", "OpenCV", "React", "FastAPI"],
-      github: "https://github.com/yourusername/revoice",
-      live: "https://revoice-demo.com",
+      github: "https://github.com/HaryiankKumra/rev-voice-anyway",
+      live: "https://rev-voice-anyway.vercel.app/",
       category: "AI/ML"
     },
     {
@@ -80,8 +80,8 @@ const ProjectsPage = () => {
       longDescription: "FinTech offers comprehensive financial management with expense tracking, budget planning, investment insights, and bill reminders. The AI-powered analytics provide personalized saving tips and spending patterns analysis.",
       image: "/images/project3.png",
       technologies: ["React Native", "Node.js", "PostgreSQL", "Chart.js", "Plaid API"],
-      github: "https://github.com/yourusername/fintech-buddy",
-      live: "https://fintech-buddy.com",
+      github: "https://github.com/HaryiankKumra/Fintech",
+      live: "https://fintech-psi-three.vercel.app/landingpage.html",
       category: "Web"
     },
     {
@@ -91,8 +91,8 @@ const ProjectsPage = () => {
       longDescription: "Digi-Doc streamlines healthcare with appointment scheduling, telemedicine consultations, prescription management, and medical record storage. Features include real-time chat, video consultations, and integrated pharmacy services.",
       image: "/images/project4.png",
       technologies: ["React", "Node.js", "MongoDB", "WebRTC", "Socket.io"],
-      github: "https://github.com/yourusername/digi-doc",
-      live: "https://digi-doc-portal.com",
+      github: "https://github.com/HaryiankKumra/Digi-Doc",
+      live: "https://digi-doc.vercel.app/",
       category: "Web"
     },
     {
@@ -102,8 +102,8 @@ const ProjectsPage = () => {
       longDescription: "LearnOSphere gamifies education for children aged 4-12 with interactive lessons in math, science, language, and arts. Features adaptive learning paths, progress tracking for parents, and reward systems to keep kids motivated.",
       image: "/images/project5.png",
       technologies: ["React", "Three.js", "Node.js", "MongoDB", "Canvas API"],
-      github: "https://github.com/yourusername/learnosphere",
-      live: "https://learnosphere-kids.com",
+      github: "https://github.com/HaryiankKumra/Learnosphere",
+      live: "https://learnosphere.vercel.app/",
       category: "Web"
     },
     {
@@ -113,50 +113,14 @@ const ProjectsPage = () => {
       longDescription: "Sahayak facilitates orphan support through donation management, volunteer coordination, adoption process guidance, and awareness campaigns. The platform connects donors, volunteers, and families with verified orphanages.",
       image: "/images/project6.png",
       technologies: ["React", "Node.js", "MongoDB", "Stripe", "SendGrid"],
-      github: "https://github.com/yourusername/sahayak",
-      live: "https://sahayak-ngo.org",
+      github: "https://github.com/HaryiankKumra/sahayak12",
+      live: "https://sahayak-nu.vercel.app/",
       category: "Web"
     }
   ];
 
-  const certifications = [
-    {
-      id: 1,
-      title: "AWS Certified Solutions Architect",
-      issuer: "Amazon Web Services",
-      date: "2024",
-      image: "/images/cert1.png",
-      credential: "https://aws.amazon.com/verification",
-      skills: ["Cloud Architecture", "AWS Services", "Security"]
-    },
-    {
-      id: 2,
-      title: "Google Professional Cloud Developer",
-      issuer: "Google Cloud",
-      date: "2024",
-      image: "/images/cert2.png",
-      credential: "https://cloud.google.com/certification",
-      skills: ["GCP", "Kubernetes", "Cloud Functions"]
-    },
-    {
-      id: 3,
-      title: "Meta Frontend Developer Professional",
-      issuer: "Meta",
-      date: "2023",
-      image: "/images/cert3.png",
-      credential: "https://coursera.org/verify",
-      skills: ["React", "JavaScript", "UI/UX"]
-    },
-    {
-      id: 4,
-      title: "TensorFlow Developer Certificate",
-      issuer: "Google",
-      date: "2023",
-      image: "/images/cert4.png",
-      credential: "https://tensorflow.org/certificate",
-      skills: ["Machine Learning", "Deep Learning", "Python"]
-    }
-  ];
+  // Empty certifications array - add your real certifications here
+  const certifications = [];
 
   return (
     <div className="min-h-screen bg-black text-white">
