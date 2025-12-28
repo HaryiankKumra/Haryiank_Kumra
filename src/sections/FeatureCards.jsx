@@ -21,7 +21,7 @@ const FeatureCards = () => (
         <h3 className="text-white text-xl font-semibold mt-1">GitHub Stats</h3>
         <div className="text-white-50">
           <img
-            src="https://github-readme-stats.vercel.app/api?username=haryiankkumra&show_icons=true&theme=dark&count_private=true"
+            src="https://github-readme-stats-fast.vercel.app/api?username=haryiankkumra&show_icons=true&theme=dark&count_private=true"
             alt="GitHub Stats"
             className="w-full rounded-lg mb-2"
           />

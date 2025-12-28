@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 const AppShowcase = () => {
@@ -167,11 +167,19 @@ const AppShowcase = () => {
           <div className="showcaselayout">
             {visibleProjects[0] && (
               <div className="first-project-wrapper">
-                <div className="image-wrapper">
+                <div className="image-wrapper relative w-full aspect-[16/10] overflow-hidden rounded-lg">
+                  {/* Blurred background image */}
+                  <img
+                    src={visibleProjects[0].image}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover scale-110 blur-xl opacity-70"
+                  />
+                  {/* Main image */}
                   <img
                     src={visibleProjects[0].image}
                     alt={visibleProjects[0].title}
-                    className="object-cover object-left-top w-full h-full"
+                    className="relative z-10 w-full h-full object-contain"
                   />
                 </div>
                 <div className="text-content">
@@ -190,11 +198,19 @@ const AppShowcase = () => {
               <div className="project-list-wrapper overflow-hidden">
                 {visibleProjects[1] && (
                   <div className="project">
-                    <div className="image-wrapper">
+                    <div className="image-wrapper relative w-full aspect-[4/3] overflow-hidden rounded-lg">
+                      {/* Blurred background image */}
+                      <img
+                        src={visibleProjects[1].image}
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover scale-110 blur-xl opacity-70"
+                      />
+                      {/* Main image */}
                       <img
                         src={visibleProjects[1].image}
                         alt={visibleProjects[1].title}
-                        className="object-cover object-left-top w-full h-full"
+                        className="relative z-10 w-full h-full object-contain"
                       />
                     </div>
                     <h2>{visibleProjects[1].title}</h2>
@@ -208,11 +224,19 @@ const AppShowcase = () => {
 
                 {visibleProjects[2] && (
                   <div className="project">
-                    <div className="image-wrapper">
+                    <div className="image-wrapper relative w-full aspect-[4/3] overflow-hidden rounded-lg">
+                      {/* Blurred background image */}
+                      <img
+                        src={visibleProjects[2].image}
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover scale-110 blur-xl opacity-70"
+                      />
+                      {/* Main image */}
                       <img
                         src={visibleProjects[2].image}
                         alt={visibleProjects[2].title}
-                        className="object-cover object-left-top w-full h-full"
+                        className="relative z-10 w-full h-full object-contain"
                       />
                     </div>
                     <h2>{visibleProjects[2].title}</h2>
@@ -264,9 +288,23 @@ const AppShowcase = () => {
             </button>
           </div>
 
+          {/* View All Button */}
+          <div className="flex justify-center mt-6">
+            <a
+              href="/projects"
+              className="group flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-200 text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              View All Projects & Certifications
+              <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+
           {/* Progress indicator */}
           <div className="text-center mt-4 text-gray-400">
-            Showing {currentIndex + 1}-{currentIndex + projectsPerView} of {projects.length} projects
+            {projectsPerView === 1 
+              ? `Project ${currentIndex + 1} of ${projects.length}`
+              : `Showing ${currentIndex + 1}-${Math.min(currentIndex + projectsPerView, projects.length)} of ${projects.length} projects`
+            }
           </div>
         </div>
       </div>
