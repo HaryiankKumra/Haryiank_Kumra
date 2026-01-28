@@ -51,7 +51,7 @@ const Hero = () => {
             </div>
 
             <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-              Hi, I’m Haryiank, a CS Undergrad student at TIET Patial.
+              Hi, I’m Haryiank, a CS Undergrad student at TIET Patiala.
             </p>
 
             <Button
@@ -76,3 +76,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
